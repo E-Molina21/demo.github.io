@@ -1,1 +1,1 @@
-página creada como demo o presentación de cnocimientos o experiencia presentada en un CV
+página creada como demo o presentación de conocimientos o experiencia presentada en un CV
