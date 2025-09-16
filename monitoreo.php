@@ -1,0 +1,318 @@
+<?php
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+require 'libcnx.php';
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="icon" type="image/png" href="imagenes/arunam.ico" />
+<title>ARUNAM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="" />
+<meta name="author" content="UNAM DGAPSU" />
+<!-- Inicio css -->
+<link rel="stylesheet" href="cs/leaflet.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="cs/cluster-leaflet/MarkerCluster.css">
+<link rel="stylesheet" href="cs/cluster-leaflet/MarkerCluster.Default.css">
+<link rel="stylesheet" href="cs/sidebar_leaflet/leaflet-sidebar.min.css">
+<link rel="stylesheet" href="cs/locate_leaflet/L.Control.Locate.min.css">
+<link rel="stylesheet" href="cs/search_leaftlet/leaflet-search.min.css">
+<link rel="stylesheet" href="cs/leaflet-geoman.css">
+<link rel="stylesheet" href="cs/Control.Coordinates.css">
+<link rel="stylesheet" href="cs/leaflet-panel-layers.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link href="cs/estilos.css" rel="stylesheet"/>
+<link href="cs/BP.css" rel="stylesheet"/>
+<link href="cs/monitoreo.css" rel="stylesheet" />
+<link href="cs/imgley.css" rel="stylesheet" />
+<!-- Fin css -->
+</head>
+<body>
+<!--Modal Acceso Insitucional-->
+<div id="modalai" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <!--Acceso-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Acceso Institucional</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form action="valid.php" method="post" enctype="multipart/form-data">
+                    <p>Usuario:</p><input type="text" class="form-control" name="usuario" id="usuario" placeholder="Usuario" />
+                    <p>Contraseña:</p><input type="password" class="form-control" name="contra" id="contra" placeholder="Contraseña" />
+                    <br/>
+                    <input class="btnaz btn btn-primary" type="submit" value="Ingresar">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Mapa-->
+<div class="col-lg-12 col-md-12">
+    <!--Barra Lateral-->
+    <div id="sidebar" class="sidebar collapsed bgcolor">
+        <!-- Nav tabs -->
+        <div class="sidebar-tabs bgcolor">
+            <ul role="tablist">
+                <li><a href="#home" role="tab" style="padding-top: 5px;"><i class="fa fa-bars facolor"></i></a></li>
+                <li><a href="#monitoreo" role="tab" style="padding-top: 5px;"><i class="fa fa-globe facolor"></i></a></li>
+                <li><a href="#capas" role="tab" style="padding-top: 5px;"><i class="fa fa-database facolor"></i></a></li>
+                <!--<li><a href="#tool" role="tab" style="padding-top: 13px;"><i class="fa fa-toolbox facolor"></i></a></li>--> 
+            </ul>
+            <ul>
+                <li><a href="#ayuda" role="tab" style="padding-top: 5px;"><i class="fa-solid fa-circle-info facolor"></i></a></li>
+                <li><a href="#credito" role="tab" style="padding-top: 5px;"><i class="fa fa-users facolor"></i></a></li>
+            </ul>
+        </div>
+        <!-- Contenido de Silderbar -->
+        <div class="sidebar-content">
+            <!--home-->
+            <div class="sidebar-pane" id="home">
+                <h3 class="sidebar-header">
+                    Informaci&oacute;n Universitaria
+                    <span class="sidebar-close"><i class="fa-solid fa-caret-left" style="color: #ffffff;"></i></span>
+                </h3>
+                <hr>
+                <p>
+                  <a class="btnaz btncollaps btn btn-primary" data-bs-toggle="collapse" href="#DEP" role="button" aria-expanded="false" aria-controls="DEP">Presencia UNAM</a>
+                </p>
+                <div class="collapse" id="DEP">
+                    <div class="card card-body">
+                        <div id="depend" name="depend"></div>
+                        <div id="X" name="X" >     
+                </div>
+                    </div>
+                </div>
+
+                <hr/>
+                
+                <p>
+                <a class="btnaz btncollaps btn btn-primary" data-bs-toggle="collapse" href="#parentCollapse" role="button" aria-expanded="false" aria-controls="parentCollapse">Informaci&oacute;n de Edificios</a>
+                </p>    
+                <div class="collapse" id="parentCollapse">
+                    <div class="card card-body">
+                    <div id="V" name="V" ></div>
+                        <p>
+                        <a class="btnaz btncollaps btn btn-primary" data-bs-toggle="collapse" href="#IGRAL" role="button" aria-expanded="false" aria-controls="IGRAL">Informaci&oacute;n General</a>
+                        </p>
+                        <div class="collapse" id="IGRAL">
+                            <div class="card card-body">
+                                <div id="General" name="General"></div>
+                            </div>
+                        </div>
+                        <p>
+                        <a class="btnaz btncollaps btn btn-primary" data-bs-toggle="collapse" href="#IPC" role="button" aria-expanded="false" aria-controls="IPC">Protecci&oacute;n Civil</a>
+                        </p>
+                        <div class="collapse" id="IPC">
+                            <div class="card card-body">
+                                <div id="ProteccionCivil" name="ProteccionCivil"></div>
+                            </div>
+                        </div>
+
+                        <p>
+                        <a class="btnaz btncollaps btn btn-primary" data-bs-toggle="collapse" href="#IPVR" role="button" aria-expanded="false" aria-controls="IPVR">Peligros y Riesgos</a>
+                        </p>
+                        <div class="collapse" id="IPVR">
+                            <div class="card card-body">
+                                <div id="RyP" name="RyP"></div>
+                            </div>
+                        </div>            
+                        
+                        <hr>
+                    </div>
+                </div>
+                <hr>
+                <p>
+                  <a class="btnaz btncollaps btn btn-primary" data-bs-toggle="collapse" href="#AE" role="button" aria-expanded="false" aria-controls="mov">Apoyo Universitario</a>
+                </p>
+                <div class="collapse" id="AE">
+                    <div class="card card-body">
+                        <div id="atm" name="atm"></div>
+                    </div>
+                </div>
+                <p>
+                  <a class="btnaz btncollaps btn btn-primary" data-bs-toggle="collapse" href="#mov" role="button" aria-expanded="false" aria-controls="mov">Movilidad</a>
+                </p>
+                <div class="collapse" id="mov">
+                    <div class="card card-body">
+                        <div id="dm" name="dm"></div>
+                    </div>
+                </div>
+                <hr/>
+                <div id="IE" name="IE" ></div>
+                <hr/>
+            </div>
+            <!--Monitorero-->
+            <div class="sidebar-pane" id="monitoreo">
+                <h3>Monitoreo de Fen&oacute;menos</h3>
+                <div id="MF" name="MF" >
+                </div> 
+
+            </div>
+            <!--Capas-->
+            <div class="sidebar-pane" id="capas">
+                <h2>Informaci&oacute;n Geoespacial Nacional</h2>
+                <!--Datos Básicos-->
+                <p>
+                  <a class="btnaz btncollaps btn btn-primary" data-bs-toggle="collapse" href="#dabas" role="button" aria-expanded="false" aria-controls="dabas">Datos B&aacute;sicos</a>
+                </p>
+                <div class="collapse" id="dabas">
+                    <div class="card card-body">
+                        <div id="DBAS" name="DBAS"></div> 
+                    </div>
+                </div>
+                <!--Fin Datos Básicos-->
+                <!-- DENUE-->
+                <p>
+                  <a class="btnaz btncollaps btn btn-primary" data-bs-toggle="collapse" href="#DEN" role="button" aria-expanded="false" aria-controls="dabas">DENUE</a>
+                </p>
+                <div class="collapse" id="DEN">
+                    <div class="card card-body">
+                        <div id="DENUE" name="DENUE"></div> 
+                    </div>
+                </div>
+                <!-- fin DENUE-->
+                <h3>Fen&oacute;menos Naturales</h3>
+                <!--Geológicos-->
+                <p>
+                  <a class="btnaz btncollaps btn btn-primary" data-bs-toggle="collapse" href="#geologicos" role="button" aria-expanded="false" aria-controls="geologicos">Geol&oacute;gicos</a>
+                </p>
+                <div class="collapse" id="geologicos">
+                  <div class="card card-body">
+                        <h5>Volc&aacute;nes</h5><div id="IV" name="IV" ></div>
+                        <h5>Volc&aacute;n Popocat&eacute;petl</h5><div id="IFV" name="IFV" ></div>
+                        <h5>Sismos</h5><div id="SIS" name="SIS"></div> 
+                        <h5>Hundiminetos y Agrietamientos</h5><div id="HUN" name="HUN"></div>
+                        <h5>Tsunamis</h5><div id="TSU" name="TSU"></div>
+                        <h5>Susceptibilidad de Laderas</h5><div id="LAD" name="LAD"></div>
+                  </div>
+                </div>
+                <!--Fin Geológicos-->
+                <!--Hidrometeorológicos-->
+                <p>
+                  <a class="btnaz btncollaps btn btn-primary" data-bs-toggle="collapse" href="#hidros" role="button" aria-expanded="false" aria-controls="hidros">Hidrometeorol&oacute;gicos</a>
+                </p>
+                <div class="collapse" id="hidros">
+                    <div class="card card-body">
+                        <div id="HidroM" name="HidroM"></div>
+                    </div>
+                </div>
+                <!--Fin Hidrometeorológicos-->
+                <!--Sanitario-Ecológicos-->
+                <p>
+                  <a class="btnaz btncollaps btn btn-primary" data-bs-toggle="collapse" href="#SanitEco" role="button" aria-expanded="false" aria-controls="SanitEcol">Sanitario-Ecol&oacute;gicos</a>
+                </p>
+                <div class="collapse" id="SanitEco">
+                    <div class="card card-body">
+                        <div id="SanitEcol" name="SanitEcol"></div>
+                    </div>
+                </div>
+                <!--FinSanitario-Ecologicos-->
+                <!--Quimico-Tecnológicos-->
+                <p>
+                  <a class="btnaz btncollaps btn btn-primary" data-bs-toggle="collapse" href="#QmTecn" role="button" aria-expanded="false" aria-controls="QmTec">Quimico-Tecnol&oacute;gico</a>
+                </p>
+                <div class="collapse" id="QmTecn">
+                    <div class="card card-body">
+                        <div id="QmTec" name="QmTec"></div>
+                    </div>
+                </div>
+                <!---fin Quimic-tecnolog-->
+                <!--Escenarios-->
+                <p>
+                  <a class="btnaz btncollaps btn btn-primary" data-bs-toggle="collapse" href="#Escn" role="button" aria-expanded="false" aria-controls="Escn">Escenarios</a>
+                </p>
+                <div class="collapse" id="Escn">
+                    <div class="card card-body">
+                        <div id="SSN2023" name="SSN2023" ><h5>Segundo Simulacro Nacional 2023</h5></div>
+                        <div id="SSN2024" name="SSN2024" ><h5>Simulacro Nacional 2024</h5></div>
+                    </div>
+                </div>
+
+                <!--Fin Escenarios-->
+            </div>
+<!--Zona Inferior-->
+            <!--Ayuda-->
+            <div class="sidebar-pane" id="ayuda">
+                <h4>Manual de Usuario</h4>
+                <div>
+                    <button type="button" class="btnaz btn btn-primary" onclick="window.open('07manual/manual_usuario.php','_blank')">Manual de uso del ARUNAM <i class="fa-solid fa-book-open-reader"></i></button>
+                </div>
+            </div>
+            <!--Colaboradores-->
+            <div class="sidebar-pane" id="credito">
+                <h4>Colaboradores</h4>
+                <div>
+                    <button type="button" class="btnaz btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalai">Acceso Institucional <i class="fa-solid fa-book-atlas"></i></button>
+                </div>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        Centro Nacional de Prevenci&oacute;n de Desastres
+                        <br/><img src="imagenes/CENAPRED_Logo.png" style="width:65%;"><br/>
+                        <a href="https://www.gob.mx/cenapred" target="_blank">Sitio WEB</a>
+                        <br/>
+                        <a href="http://www.atlasnacionalderiesgos.gob.mx/" target="_blank">Atlas Nacional de Riesgos Sitio WEB</a>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+                <hr/>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        Instituto de Geograf&iacute;a
+                        <br/><img src="imagenes/IG.png" style="width:45%;"><br/>
+                        <a href="https://www.geografia.unam.mx/geoigg/" target="_blank">Sitio WEB</a>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+            </div>
+        </div>
+        <div class="additional-content" id="additional-content">
+                <h2 class="title" id="title1"></h2>
+                <p class="sub-content1" id="dynamic-content">Contenido: </p>
+                <p class="sub-content" id="subCont" > Elementos</p>
+                <p class="sub2" id="sub2" ></p>
+        </div>
+    </div>
+    <!--Fin Barra Lateral-->
+    <!--prueba container datos-->
+ 
+    <!--fin prueba-->
+    <div id="mapa" class="sidebar-map"></div>
+</div>
+</body>
+<!--JS-->
+<script src="js/leaflet.js"></script>
+<script src="js/leaflet-geoman.min.js"></script>
+<script src="js/cluster-leaflet/leaflet.markercluster.js"></script>
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/sidebar_leaflet/leaflet-sidebar.min.js"></script>
+<script src="js/esri/esri-leaflet.js"></script>
+<script src="js/locate_leaflet/L.Control.Locate.min.js"></script>
+<script src="js/search_leaflet/leaflet-search.min.js"></script>
+<script src="js/leaflet.geometryutil.js"></script>
+<script src="js/turf.min.js"></script>
+<script src="js/Control.Coordinates.js"></script>
+<script src="js/leaflet-panel-layers.js"></script>
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>  <link rel="preconnect" href="https://fonts.googleapis.com">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="js/leaflet.browser.print.min.js"></script>
+<script src="js/pdfmake.min.js"></script>
+<script src="js/vfs_fonts.js"></script>
+<script src="js/html2canvas.min.js"></script>
+<script src="js/DYD/togeojson.js"></script>
+<script src="js/DYD/leaflet.filelayer.js"></script>
+<script src="js/bundle.js"></script>
+<script src="js/settings.js" type="text/javascript"></script>
+<script src="js/monitoreo.js"></script>
+</html>
