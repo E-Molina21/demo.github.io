@@ -30,53 +30,7 @@ html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Seg
     <div class="title">demo</div>
   </header>
 
-  <!-- Sidebar + Mapa -->
-  <div class="col-lg-12 col-md-12">
-    <!-- Barra Lateral -->
-    <div id="sidebar" class="sidebar collapsed bgcolor">
-      <div class="sidebar-tabs bgcolor">
-        <ul role="tablist">
-          <li><a href="#home" role="tab"><i class="fa fa-bars facolor"></i></a></li>
-          <li><a href="#monitoreo" role="tab"><i class="fa fa-globe facolor"></i></a></li>
-          <li><a href="#capas" role="tab"><i class="fa fa-database facolor"></i></a></li>
-        </ul>
-        <ul>
-          <li><a href="#ayuda" role="tab"><i class="fa-solid fa-circle-info facolor"></i></a></li>
-          <li><a href="#credito" role="tab"><i class="fa fa-users facolor"></i></a></li>
-        </ul>
-      </div>
-
-      <!-- Contenido del Sidebar -->
-      <div class="sidebar-content">
-        <div class="sidebar-pane" id="home">
-          <h3 class="sidebar-header">Información Universitaria
-            <span class="sidebar-close"><i class="fa-solid fa-caret-left" style="color:#fff;"></i></span>
-          </h3>
-          <hr>
-          <!-- Ejemplo collapse -->
-          <p><a class="btn btn-primary" data-bs-toggle="collapse" href="#DEP">Presencia UNAM</a></p>
-          <div class="collapse" id="DEP"><div class="card card-body"><div id="depend"></div></div></div>
-        </div>
-        <div class="sidebar-pane" id="monitoreo">
-          <h3>Monitoreo de Fenómenos</h3>
-          <div id="MF"></div>
-        </div>
-        <div class="sidebar-pane" id="capas">
-          <h2>Información Geoespacial Nacional</h2>
-          <p><a class="btn btn-primary" data-bs-toggle="collapse" href="#dabas">Datos Básicos</a></p>
-          <div class="collapse" id="dabas"><div class="card card-body"><div id="DBAS"></div></div></div>
-        </div>
-        <div class="sidebar-pane" id="ayuda">
-          <h4>Manual de Usuario</h4>
-          <button type="button" class="btn btn-primary" onclick="window.open('07manual/manual_usuario.php','_blank')">Manual <i class="fa-solid fa-book-open-reader"></i></button>
-        </div>
-        <div class="sidebar-pane" id="credito">
-          <h4>Colaboradores</h4>
-          <p>Centro Nacional de Prevención de Desastres</p>
-        </div>
-      </div>
-    </div>
-    <!-- Fin Barra Lateral -->
+  
     <div id="mapa" class="sidebar-map"></div>
   </div>
 </div>
