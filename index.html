@@ -26,9 +26,47 @@
 <!-- Fin css -->
 </head>
 <body>
-<!--Modal Acceso Insitucional-->
+<style>
+:root{--topbar-height:56px}
+html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial}
+/* Top bar */
+.topbar{
+height:var(--topbar-height);
+display:flex;
+align-items:center;
+padding:0 16px;
+gap:12px;
+background:linear-gradient(90deg,#0f172a,#0b1220);
+color:#fff;
+box-shadow:0 2px 6px rgba(2,6,23,0.2);
+position:relative;
+}
+.topbar .title{
+font-weight:600;
+font-size:18px;
+letter-spacing:0.4px;
+}
+/* Map fills remaining viewport below topbar */
+#map{
+height:calc(100vh - var(--topbar-height));
+width:100%;
+display:block;
+}
+/* Small helper to center the whole page horizontally */
+.wrap{display:flex;flex-direction:column}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="topbar">
+<div class="title">demo</div>
+</header>
 
-    <div id="mapa" class="sidebar-map"></div>
+
+<div id="mapa" aria-label="Map container"></div>
+</div>
+
+ 
 </div>
 </body>
 <!--JS-->
