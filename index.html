@@ -42,6 +42,23 @@
     .topbar .title{font-weight:600;font-size:18px;letter-spacing:0.4px}
     #mapa{height:calc(100vh - var(--topbar-height));width:100%}
     .wrap{display:flex;flex-direction:column}
+
+    #mapa .leaflet-sidebar {
+  position: absolute;   /* keeps it floating within the map */
+  top: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+}
+#mapa .leaflet-sidebar-tabs {
+  background: #0a1a3f; /* match deep blue theme */
+}
+#mapa .leaflet-sidebar .leaflet-sidebar-header {
+  background: #13294b; /* slightly lighter blue for header */
+  color: white;
+}
+
+    
   </style>
 </head>
 
