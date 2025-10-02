@@ -49,6 +49,39 @@
   <div class="wrap">
     <header class="topbar"><div class="title">demo</div></header>
     <div id="mapa" aria-label="Map container"></div>
+        <div id="sidebar" class="leaflet-sidebar collapsed">
+    <!-- Sidebar Tabs -->
+    <div class="leaflet-sidebar-tabs">
+      <ul role="tablist"> 
+        <li><a href="#home" role="tab"><i class="fa fa-home"></i></a></li>
+        <li><a href="#info" role="tab"><i class="fa fa-info-circle"></i></a></li>
+        <li><a href="#settings" role="tab"><i class="fa fa-cog"></i></a></li>
+      </ul>
+    </div>
+
+    <!-- Sidebar Content -->
+    <div class="leaflet-sidebar-content">
+      <div class="leaflet-sidebar-pane" id="home">
+        <h1 class="leaflet-sidebar-header">Home
+          <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
+        </h1>
+        <p>Welcome to the home tab.</p>
+      </div>
+
+      <div class="leaflet-sidebar-pane" id="info">
+        <h1 class="leaflet-sidebar-header">Information
+          <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
+        </h1>
+        <p>Here you can display info about the map or data.</p>
+      </div>
+
+      <div class="leaflet-sidebar-pane" id="settings">
+        <h1 class="leaflet-sidebar-header">Settings
+          <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
+        </h1>
+        <p>Settings or configuration options go here.</p>
+      </div>
+    </div>
   </div>
 
   <!-- JS libraries -->
