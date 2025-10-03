@@ -27,13 +27,8 @@ var mapa = new L.map('mapa', {
 var layerControl = L.control.layers(capasBase, null, {position: 'topleft'}).addTo(mapa);
 //Cargar Sidebar
 
-//var sidebar = L.control.sidebar({sidebar}).addTo(mapa);
-const sidebar = L.control.sidebar({
-  container: 'sidebar',
-  position: 'left',
-  autopan: false,
-  closeButton: true
-}).addTo(mapa);
+var sidebar = L.control.sidebar({sidebar}).addTo(mapa);
+
 
 
 var coordsBox = L.control({
@@ -54,6 +49,7 @@ coordsBox.addTo(mapa);
 mapa.on('mousemove', function (e) {
 	coordsBox.update(e.latlng);
 });
+
 
 
 
