@@ -157,7 +157,7 @@
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
+    }).addTo(mapa);
 
     // create the sidebar instance and bind it to the existing DOM element with id 'sidebar'
     // this uses the plugin API to use an existing container element.
@@ -166,10 +166,7 @@
       position: 'left',
       autopan: false,   // set to true if you want the map to pan to make room for the sidebar
       closeButton: true
-    }).addTo(map);
-
-    // open the 'home' panel by default
-    sidebarControl.open('home');
+    }).addTo(mapa)
   </script>
 </body>
 </html>
