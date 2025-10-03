@@ -27,6 +27,7 @@ var mapa = new L.map('mapa', {
 var layerControl = L.control.layers(capasBase, null, {position: 'topleft'}).addTo(mapa);
 //Cargar Sidebar
 
-var sidebar = L.Control.sidebar('sidebar').addTo(mapa);
+var sidebar = L.control.sidebar('sidebar').addTo(mapa);
+
 
 
