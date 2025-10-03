@@ -67,7 +67,4 @@ html, body {
   color: #fff;
 }
 
-#sidebar.collapsed .leaflet-sidebar-content {
-  display: none;
-}
 
