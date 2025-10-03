@@ -20,7 +20,7 @@ var mapa = new L.map('mapa', {
 	center: [19.33,-99.18555],
 	zoom: 15,
 	layers:[capaOSM]
-	pmIgnore: false,
+	
 	
 });
 //Cargar Capas Base en boton de control dentro del Mapa
@@ -28,6 +28,7 @@ var layerControl = L.control.layers(capasBase, null, {position: 'topleft'}).addT
 //Cargar Sidebar
 
 var sidebar = L.control.sidebar('sidebar').addTo(mapa);
+
 
 
 
