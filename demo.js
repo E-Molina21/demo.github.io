@@ -29,11 +29,7 @@ var layerControl = L.control.layers(capasBase, null, {position: 'topleft'}).addT
 
 var sidebar = L.control.sidebar('sidebar').addTo(mapa);
 
-mapa.pm.Toolbar.addControls(cont);
-L.control.scale({
-	position: 'bottomleft',
-	imperial: false,
-}).addTo(mapa);
+
 
 var coordsBox = L.control({
 	position: 'bottomleft'
@@ -53,6 +49,7 @@ coordsBox.addTo(mapa);
 mapa.on('mousemove', function (e) {
 	coordsBox.update(e.latlng);
 });
+
 
 
 
