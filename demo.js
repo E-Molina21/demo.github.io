@@ -27,7 +27,7 @@ var mapa = new L.map('mapa', {
 var layerControl = L.control.layers(capasBase, null, {position: 'topleft'}).addTo(mapa);
 //Cargar Sidebar
 
-var sidebar = L.control.sidebar('sidebar').addTo(mapa);
+var sidebar = L.control.sidebar({sidebar}).addTo(mapa);
 
 
 
@@ -49,6 +49,7 @@ coordsBox.addTo(mapa);
 mapa.on('mousemove', function (e) {
 	coordsBox.update(e.latlng);
 });
+
 
 
 
