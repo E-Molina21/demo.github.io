@@ -18,7 +18,7 @@ var capasBase = {
 	//Variable de mapa
 var mapa = new L.map('mapa', {
 	center: [19.33,-99.18555],
-	zoom: 15,
+	zoom: 10,
 	layers:[capaOSM]
 	
 	
@@ -28,6 +28,31 @@ var layerControl = L.control.layers(capasBase, null, {position: 'topleft'}).addT
 //Cargar Sidebar
 
 var sidebar = L.control.sidebar('sidebar').addTo(mapa);
+
+mapa.pm.Toolbar.addControls(cont);
+L.control.scale({
+	position: 'bottomleft',
+	imperial: false,
+}).addTo(mapa);
+
+var coordsBox = L.control({
+	position: 'bottomleft'
+});
+
+coordsBox.onAdd = function (mapa) {
+	this._div = L.DomUtil.create('div', 'leaflet-control-coordinates');
+	this._div.innerHTML = 'Latitud: 0.00<br>Longitud: 0.00';
+	return this._div;
+};
+
+coordsBox.update = function (latlng) {
+	this._div.innerHTML = 'Latitud: ' + latlng.lat.toFixed(5) + '<br>Longitud: ' + latlng.lng.toFixed(5);
+};
+
+coordsBox.addTo(mapa);
+mapa.on('mousemove', function (e) {
+	coordsBox.update(e.latlng);
+});
 
 
 
