@@ -66,3 +66,8 @@ html, body {
 #mapa .leaflet-sidebar .leaflet-sidebar-content {
   color: #fff;
 }
+
+#sidebar.collapsed .leaflet-sidebar-content {
+  display: none;
+}
+
