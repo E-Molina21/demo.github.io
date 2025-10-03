@@ -39,10 +39,10 @@ html, body {
 /* Sidebar styles */
 #mapa .leaflet-sidebar {
   position: absolute !important;
-  top: 0;
+  top: 0.05;
   left: 0;
   bottom: 0;
-  height: 100% !important;
+  height: 90% !important;
   
   z-index: 650;
   background: #0b1220;
