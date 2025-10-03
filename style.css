@@ -40,7 +40,7 @@ html, body {
 #mapa .leaflet-sidebar {
   position: absolute !important;
   top: 0.05;
-  left: 0;
+  left: 0.01;
   bottom: 0;
   height: 97.5% !important;
   
