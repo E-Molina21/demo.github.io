@@ -64,8 +64,8 @@ html, body {
 }
 
 #mapa .leaflet-sidebar .leaflet-sidebar-content {
-  color: #fff;
-  background-color: #13294b !important;
+  color: #13294b;
+ / * background-color: #13294b !important; * /
 }
 
 
