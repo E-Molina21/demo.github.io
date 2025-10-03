@@ -8,12 +8,6 @@ var capaOSM = new L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png'),
 
 
 
-
-
-
-
-
-    
 var capasBase = {
     "OpenStreetMap": capaOSM,
 	"Google": capaGoogleHibrida, 
@@ -25,7 +19,6 @@ var capasBase = {
 var mapa = new L.map('mapa', {
 	center: [19.33,-99.18555],
 	zoom: 15,
-	layers:[capaOSM,cluster_UNAM,PrediosUNAM],
 	pmIgnore: false,
 	
 });
@@ -34,3 +27,4 @@ var layerControl = L.control.layers(capasBase, null, {position: 'topleft'}).addT
 //Cargar Sidebar
 
 var sidebar = L.control.sidebar('sidebar').addTo(mapa);
+
