@@ -61,8 +61,8 @@ mapa.on('mousemove', function (e) {
 const staticlay = {
   "Manglares": {
     type: "image",
-    url: "mang.png",
-	bounds: [[21.2392,-87.5153],[21.7055,-87.0970]],
+    url: "mang2.png",
+	bounds: [[21.240,-87.519],[21.726,-87.092]],
 	options: {opacity: 0.7},
     layer: null
   },
@@ -116,6 +116,7 @@ Object.entries(staticlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerList.appendChild(label);
 });
+
 
 
 
