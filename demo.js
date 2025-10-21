@@ -96,9 +96,9 @@ Object.entries(staticlay).forEach(([name, info]) => {
           layerInfo.layer = L.tileLayer.wms(layerInfo.url, layerInfo.options || {});
         }
       }
-      map.addLayer(layerInfo.layer);
+      mapa.addLayer(layerInfo.layer);
     } else {
-      if (layerInfo.layer) map.removeLayer(layerInfo.layer);
+      if (layerInfo.layer) mapa.removeLayer(layerInfo.layer);
     }
   });
 
@@ -106,6 +106,7 @@ Object.entries(staticlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerList.appendChild(label);
 });
+
 
 
 
