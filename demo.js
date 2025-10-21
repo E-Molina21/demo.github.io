@@ -60,7 +60,7 @@ mapa.on('mousemove', function (e) {
 //Delcaracion capas
 const staticlay = {
   "Manglares": {
-    type: "png",
+    type: "image",
     url: "mang.png",
     layer: null
   },
@@ -95,10 +95,18 @@ Object.entries(staticlay).forEach(([name, info]) => {
         } else if (layerInfo.type === "wms") {
           layerInfo.layer = L.tileLayer.wms(layerInfo.url, layerInfo.options || {});
         }
+		  else if (layerInfo.type === "image") {
+          // Require bounds: [[southWestLat, southWestLng], [northEastLat, northEastLng]]
+          if (!layerInfo.bounds) {
+            console.error(`Missing bounds for image layer: ${layerName}`);
+			return;
+		  }
+			layerInfo.layer = L.imageOverlay(layerInfo.url, layerInfo.bounds, layerInfo.options || {});
+		  }
       }
-      mapa.addLayer(layerInfo.layer);
+     if (layerInfo.layer) map.addLayer(layerInfo.layer);
     } else {
-      if (layerInfo.layer) mapa.removeLayer(layerInfo.layer);
+      if (layerInfo.layer) map.removeLayer(layerInfo.layer);
     }
   });
 
@@ -106,6 +114,7 @@ Object.entries(staticlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerList.appendChild(label);
 });
+
 
 
 
