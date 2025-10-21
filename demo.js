@@ -62,7 +62,7 @@ const staticlay = {
   "Manglares": {
     type: "image",
     url: "mang.png",
-	bounds: [[21.2392,-87.5153],[21.7055,-87.0934]],
+	bounds: [[21.2392,-87.5153],[21.7055,-87.0970]],
 	options: {opacity: 0.7},
     layer: null
   },
@@ -116,6 +116,7 @@ Object.entries(staticlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerList.appendChild(label);
 });
+
 
 
 
