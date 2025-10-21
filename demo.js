@@ -71,7 +71,7 @@ const staticlay = {
 const layerList = document.getElementById("home");
 
 // Create checkboxes dynamically
-Object.entries(availableLayers).forEach(([name, info]) => {
+Object.entries(staticlay).forEach(([name, info]) => {
   const label = document.createElement("label");
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
@@ -80,7 +80,7 @@ Object.entries(availableLayers).forEach(([name, info]) => {
   checkbox.addEventListener("change", async (e) => {
     const checked = e.target.checked;
     const layerName = e.target.dataset.layerName;
-    const layerInfo = availableLayers[layerName];
+    const layerInfo = staticlay[layerName];
 
     if (checked) {
       // Lazy-load only if not already loaded
@@ -106,6 +106,7 @@ Object.entries(availableLayers).forEach(([name, info]) => {
   label.append(" " + name);
   layerList.appendChild(label);
 });
+
 
 
 
