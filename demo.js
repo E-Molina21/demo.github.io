@@ -106,9 +106,9 @@ Object.entries(staticlay).forEach(([name, info]) => {
 			layerInfo.layer = L.imageOverlay(layerInfo.url, layerInfo.bounds, layerInfo.options || {});
 		  }
       }
-     if (layerInfo.layer) map.addLayer(layerInfo.layer);
+     if (layerInfo.layer) mapa.addLayer(layerInfo.layer);
     } else {
-      if (layerInfo.layer) map.removeLayer(layerInfo.layer);
+      if (layerInfo.layer) mapa.removeLayer(layerInfo.layer);
     }
   });
 
@@ -116,6 +116,7 @@ Object.entries(staticlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerList.appendChild(label);
 });
+
 
 
 
