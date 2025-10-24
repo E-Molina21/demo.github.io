@@ -178,10 +178,10 @@ Object.entries(dynlay).forEach(([name, info]) => {
         }
       }
 
-      if (layerInfo.layer) map.addLayer(layerInfo.layer);
+      if (layerInfo.layer) mapa.addLayer(layerInfo.layer);
 
     } else {
-      if (layerInfo.layer) map.removeLayer(layerInfo.layer);
+      if (layerInfo.layer) mapa.removeLayer(layerInfo.layer);
     }
   });
 
@@ -189,6 +189,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
