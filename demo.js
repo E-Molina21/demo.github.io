@@ -174,8 +174,9 @@ Object.entries(dynlay).forEach(([name, info]) => {
 
   label.appendChild(checkbox);
   label.append(" " + name);
-  layerList.appendChild(label);
+  layerListdyn.appendChild(label);
 });
+
 
 
 
