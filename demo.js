@@ -145,9 +145,9 @@ Object.entries(dynlay).forEach(([name, info]) => {
     const layerName = e.target.dataset.layerName;
     const layerInfo = dynlay[layerName];
 
-    if (checked) {
+      if (checked) {
       // Lazy-load only if not already loaded
-    if (!layerInfo.layer) {
+      if (!layerInfo.layer) {
         console.log(`Loading ${layerName}...`);
 
         if (layerInfo.type === "geojson") {
@@ -165,7 +165,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
           layerInfo.layer = L.tileLayer.wms(layerInfo.url, layerInfo.options || {});
 
         } else if (layerInfo.type === "esri-dynamic") {
-          // Require Esri Leaflet plugin
+          // Esri dynamic map layer (MapServer export)
           if (!L.esri) {
             console.error("Esri Leaflet plugin not loaded. Add <script src='https://unpkg.com/esri-leaflet'></script> before this script.");
             return;
@@ -175,12 +175,42 @@ Object.entries(dynlay).forEach(([name, info]) => {
             layers: layerInfo.layers || [],
             opacity: layerInfo.opacity || 1
           });
+
+        } else if (layerInfo.type === "esri-feature") {
+          // Esri Feature Layer (vector data)
+          if (!L.esri) {
+            console.error("Esri Leaflet plugin not loaded. Add <script src='https://unpkg.com/esri-leaflet'></script> before this script.");
+            return;
+          }
+
+          layerInfo.layer = L.esri.featureLayer({
+            url: layerInfo.url,
+            pointToLayer: (geojson, latlng) =>
+              L.circleMarker(latlng, {
+                radius: 5,
+                fillColor: "#0077be",
+                color: "#004466",
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.8
+              }),
+            onEachFeature: (feature, layer) => {
+              let popup = "";
+              const props = feature.properties || {};
+              for (const key in props) {
+                popup += `<b>${key}</b>: ${props[key]}<br>`;
+              }
+              layer.bindPopup(popup);
+            }
+          });
         }
       }
 
+      // Add to map if created
       if (layerInfo.layer) mapa.addLayer(layerInfo.layer);
 
     } else {
+      // Remove layer if toggled off
       if (layerInfo.layer) mapa.removeLayer(layerInfo.layer);
     }
   });
@@ -189,9 +219,6 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
-
-
-
 
 
 
