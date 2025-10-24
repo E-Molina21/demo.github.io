@@ -69,6 +69,17 @@ const staticlay = {
   
 };
 
+const dynlay = {
+	"Ciclones Tropicales NOAA": {
+		url:"http://servicios2.cenapred.unam.mx:6080/arcgis/rest/services/ServAuto/NoaaCT/MapServer",
+		layers:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29],
+		opacity: 0.7,
+		layer: null
+	},
+
+
+};
+
 //añadido desde una checkbox
 const layerList = document.getElementById("home");
 
@@ -117,7 +128,54 @@ Object.entries(staticlay).forEach(([name, info]) => {
   layerList.appendChild(label);
 });
 
+//------------------------------------------------------dinamicas-------------------------------
 
+const layerListdyn = document.getElementById("dyn");
+
+// Create checkboxes dynamically
+Object.entries(dynlay).forEach(([name, info]) => {
+  const label = document.createElement("label");
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.dataset.layerName = name;
+
+  checkbox.addEventListener("change", async (e) => {
+    const checked = e.target.checked;
+    const layerName = e.target.dataset.layerName;
+    const layerInfo = dynlay[layerName];
+
+    if (checked) {
+      // Lazy-load only if not already loaded
+      if (!layerInfo.layer) {
+        console.log(`Loading ${layerName}...`);
+        if (layerInfo.type === "geojson") {
+          const response = await fetch(layerInfo.url);
+          const data = await response.json();
+          layerInfo.layer = L.geoJSON(data);
+        } else if (layerInfo.type === "tile") {
+          layerInfo.layer = L.tileLayer(layerInfo.url, layerInfo.options || {});
+        } else if (layerInfo.type === "wms") {
+          layerInfo.layer = L.tileLayer.wms(layerInfo.url, layerInfo.options || {});
+        }
+		  else if (layerInfo.type === "image") {
+          // Require bounds: [[southWestLat, southWestLng], [northEastLat, northEastLng]]
+          if (!layerInfo.bounds) {
+            console.error(`Missing bounds for image layer: ${layerName}`);
+			return;
+		  }
+			layerInfo.layer = L.imageOverlay(layerInfo.url, layerInfo.bounds, layerInfo.options || {});
+		  }
+      }
+     if (layerInfo.layer) mapa.addLayer(layerInfo.layer);
+    } else {
+      if (layerInfo.layer) mapa.removeLayer(layerInfo.layer);
+    }
+  });
+
+  label.appendChild(checkbox);
+  label.append(" " + name);
+  layerList.appendChild(label);
+});
 
 
 
