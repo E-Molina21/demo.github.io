@@ -71,7 +71,7 @@ const staticlay = {
 
 const dynlay = {
 	"Ciclones Tropicales NOAA": {
-		type: "wms",
+		type: "esri-dynamic",
 		url:"http://servicios2.cenapred.unam.mx:6080/arcgis/rest/services/ServAuto/NoaaCT/MapServer",
 		layers:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29],
 		opacity: 0.7,
@@ -147,29 +147,41 @@ Object.entries(dynlay).forEach(([name, info]) => {
 
     if (checked) {
       // Lazy-load only if not already loaded
-      if (!layerInfo.layer) {
+    if (!layerInfo.layer) {
         console.log(`Loading ${layerName}...`);
+
         if (layerInfo.type === "geojson") {
           const response = await fetch(layerInfo.url);
           const data = await response.json();
           layerInfo.layer = L.geoJSON(data);
+
         } else if (layerInfo.type === "tile") {
           layerInfo.layer = L.tileLayer(layerInfo.url, layerInfo.options || {});
+
+        } else if (layerInfo.type === "image") {
+          layerInfo.layer = L.imageOverlay(layerInfo.url, layerInfo.bounds, layerInfo.options || {});
+
         } else if (layerInfo.type === "wms") {
           layerInfo.layer = L.tileLayer.wms(layerInfo.url, layerInfo.options || {});
+
+        } else if (layerInfo.type === "esri-dynamic") {
+          // Require Esri Leaflet plugin
+          if (!L.esri) {
+            console.error("Esri Leaflet plugin not loaded. Add <script src='https://unpkg.com/esri-leaflet'></script> before this script.");
+            return;
+          }
+          layerInfo.layer = L.esri.dynamicMapLayer({
+            url: layerInfo.url,
+            layers: layerInfo.layers || [],
+            opacity: layerInfo.opacity || 1
+          });
         }
-		  else if (layerInfo.type === "image") {
-          // Require bounds: [[southWestLat, southWestLng], [northEastLat, northEastLng]]
-          if (!layerInfo.bounds) {
-            console.error(`Missing bounds for image layer: ${layerName}`);
-			return;
-		  }
-			layerInfo.layer = L.imageOverlay(layerInfo.url, layerInfo.bounds, layerInfo.options || {});
-		  }
       }
-     if (layerInfo.layer) mapa.addLayer(layerInfo.layer);
+
+      if (layerInfo.layer) map.addLayer(layerInfo.layer);
+
     } else {
-      if (layerInfo.layer) mapa.removeLayer(layerInfo.layer);
+      if (layerInfo.layer) map.removeLayer(layerInfo.layer);
     }
   });
 
@@ -177,6 +189,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
