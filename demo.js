@@ -70,9 +70,8 @@ const staticlay = {
 	  type: "geojson",
 	  url: "ViasPSTL.geojson",
       options: {
-      	outlineStyle: { color: "#111", weight: 3, opacity: 1 },  // outer
-      	inlineStyle:  { color: "#ff7f00", weight: 2, opacity: 1 }, // inner
-      },
+      style: { color: "#0066ff", weight: 2, opacity: 0.9 }
+    },
 		layer: null
 
   },
@@ -228,6 +227,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
