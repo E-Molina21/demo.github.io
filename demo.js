@@ -109,7 +109,7 @@ const staticlay = {
 		layer: null
 	},
 	"CDMX": {
-		type: " geojson",
+		type: "geojson",
 		url: "CDMX.geojson",
 		options: {
 			style:{
@@ -273,6 +273,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
