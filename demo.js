@@ -122,6 +122,52 @@ const staticlay = {
 		},
 		layer: null
 	},
+	"Cuerpos de Agua": {
+		type: "geojson",
+		url: "AguaCDMX.geojson",
+		options: {
+			style:{
+				color: "#75c8dd",
+				fillColor: "#75c8dd", 
+				weight: 1,
+				opacity: 1, 
+				fillOpacity: 1,
+				
+			},
+		},
+		layer: null
+	},
+		"Inventario de Áreas Verdes": {
+		type: "geojson",
+		url: "InvAreasVerd.geojson",
+		options: {
+			style:{
+				color: "#becf50",
+				fillColor: "#becf50", 
+				weight: 1,
+				opacity: 1, 
+				fillOpacity: 1,
+				
+			},
+		},
+		layer: null
+	},
+		"Suelos de Conservación": {
+		type: "geojson",
+		url: "SueloConserv.geojson",
+		options: {
+			style:{
+				color: "#9acf50",
+				fillColor: "#9acf50", 
+				weight: 1,
+				opacity: 1, 
+				fillOpacity: 1,
+				
+			},
+		},
+		layer: null
+	},
+	
 };
 
 const dynlay = {
@@ -273,6 +319,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
