@@ -74,3 +74,13 @@ html, body {
   width: 30px !important;
   height: 30px !important;
 }
+
+#home {
+  padding: 8px 12px;
+}
+
+#home label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
