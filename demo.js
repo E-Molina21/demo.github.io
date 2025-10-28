@@ -74,14 +74,13 @@ const staticlay = {
     type: "geojson",
     url: "ViasPSTL.geojson",
     options: {
-      // Define the standard Leaflet 'style' option here
-      style: {
-        color: "#ff7f00", // The color of the line (inlineStyle)
-        weight: 2,       // The thickness of the line (inlineStyle)
-        opacity: 1       // The opacity of the line (inlineStyle)
-      },
-      // You can keep your custom styles if you plan to use a custom function
-      // for the dual stroke effect, but for simple styling, the 'style' above is enough.
+     
+      //style: {
+       // color: "#ff7f00", // The color of the line (inlineStyle)
+       // weight: 2,       // The thickness of the line (inlineStyle)
+      //  opacity: 1       // The opacity of the line (inlineStyle)
+     // },
+    
       dualStroke: true, // custom flag
       outlineStyle: { color: "#111111", weight: 3, opacity: 1 },
       inlineStyle:  { color: "#ff7f00", weight: 2, opacity: 1 }
@@ -239,6 +238,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
