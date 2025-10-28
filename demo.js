@@ -57,31 +57,6 @@ mapa.on('mousemove', function (e) {
 
 
 //--------------------------------
-// Example color mapping function
-const colorhash = {
-  "Primaria": "#ff7f00",
-  "Secundaria": "#ffaa00",
-  "Terciaria": "#ffee00"
-};
-
-// Define the per-feature logic outside
-function viasOnEachFeature(feature, layer) {
-  const zon = feature.properties?.CLASE || "Primaria"; // adjust to your property name
-  const col = colorhash[zon] || "#ff7f00";
-
-  layer.setStyle({
-    color: col,         // line color
-    weight: 2,
-    opacity: 1,
-    fillColor: col,
-    fillOpacity: 0.3
-  });
-
-  // optional popup
-  if (feature.properties?.NOMBRE) {
-    layer.bindPopup(feature.properties.NOMBRE);
-  }
-}
 
 //-------------------------------
 
@@ -274,6 +249,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
