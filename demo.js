@@ -102,7 +102,7 @@ const staticlay = {
 		options: {
 			style: {
 			color:  "#0F0F0F",
-     		weight: 2,     
+     		weight: 1,     
       		opacity: 1   
      		},
 		},
@@ -260,6 +260,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
