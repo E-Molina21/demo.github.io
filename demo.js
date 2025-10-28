@@ -63,7 +63,7 @@ mapa.on('mousemove', function (e) {
 
 //Delcaracion capas
 const staticlay = {
-  "Clasificacción Supervisada de Manglares": {
+  "Clasificación Supervisada de Manglares": {
     type: "image",
     url: "mang2.png",
 	bounds: [[21.240,-87.519],[21.726,-87.092]],
@@ -319,6 +319,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
