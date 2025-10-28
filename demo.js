@@ -140,7 +140,6 @@ const dynlay = {
 //añadido desde una checkbox
 const layerList = document.getElementById("home");
 
-// Create checkboxes dynamically
 Object.entries(staticlay).forEach(([name, info]) => {
   const label = document.createElement("label");
   const checkbox = document.createElement("input");
@@ -153,29 +152,27 @@ Object.entries(staticlay).forEach(([name, info]) => {
     const layerInfo = staticlay[layerName];
 
     if (checked) {
-      // Lazy-load only if not already loaded
       if (!layerInfo.layer) {
         console.log(`Loading ${layerName}...`);
+
         if (layerInfo.type === "geojson") {
           const response = await fetch(layerInfo.url);
           const data = await response.json();
-		  const opts = layerInfo.options || {};
-		  layerInfo.layer = L.geoJSON(data, opts);
+          layerInfo.layer = L.geoJSON(data, layerInfo.options || {});
         } else if (layerInfo.type === "tile") {
           layerInfo.layer = L.tileLayer(layerInfo.url, layerInfo.options || {});
         } else if (layerInfo.type === "wms") {
           layerInfo.layer = L.tileLayer.wms(layerInfo.url, layerInfo.options || {});
-        }
-		  else if (layerInfo.type === "image") {
-          // Require bounds: [[southWestLat, southWestLng], [northEastLat, northEastLng]]
+        } else if (layerInfo.type === "image") {
           if (!layerInfo.bounds) {
             console.error(`Missing bounds for image layer: ${layerName}`);
-			return;
-		  }
-			layerInfo.layer = L.imageOverlay(layerInfo.url, layerInfo.bounds, layerInfo.options || {});
-		  }
+            return;
+          }
+          layerInfo.layer = L.imageOverlay(layerInfo.url, layerInfo.bounds, layerInfo.options || {});
+        }
       }
-     if (layerInfo.layer) mapa.addLayer(layerInfo.layer);
+
+      if (layerInfo.layer) mapa.addLayer(layerInfo.layer);
     } else {
       if (layerInfo.layer) mapa.removeLayer(layerInfo.layer);
     }
@@ -184,7 +181,7 @@ Object.entries(staticlay).forEach(([name, info]) => {
   label.appendChild(checkbox);
   label.append(" " + name);
   layerList.appendChild(label);
-});
+})
 
 //------------------------------------------------------dinamicas-------------------------------
 
@@ -277,6 +274,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
