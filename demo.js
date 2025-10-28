@@ -77,7 +77,7 @@ const staticlay = {
      
     style: {
      color: "#ff7f00",
-     weight: 4,     
+     weight: 3,     
       opacity: 1   
      },
 	},
@@ -96,6 +96,19 @@ const staticlay = {
 		},
 		layer: null
 	},
+	"Vías residenciales": {
+		type: "geojson",
+		url: "ViasResid2.geojson",
+		options: {
+			style: {
+			color:  "#0F0F0F",
+     		weight: 2,     
+      		opacity: 1   
+     		},
+		},
+		layer: null
+	},
+	
 };
 
 const dynlay = {
@@ -247,6 +260,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
