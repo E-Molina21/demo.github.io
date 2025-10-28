@@ -69,9 +69,20 @@ const staticlay = {
   "Vías": {
 	  type: "geojson",
 	  url: "ViasPSTL.geojson",
-      options: {
-      style: { color: "#0066ff", weight: 2, opacity: 0.9 }
-    },
+      onEachFeature: function(feature, layer) {
+			var zon = feature.properties;
+			var col = colorhash[zon];
+
+			layer.setStyle({
+				fillColor: col,
+				weight: 2,
+				opacity: 1,
+				color: 'red',
+				fillOpacity: .3,
+
+			});
+      	
+    	},
 		layer: null
 
   },
@@ -227,6 +238,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
