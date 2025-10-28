@@ -75,16 +75,14 @@ const staticlay = {
     url: "ViasPSTL.geojson",
     options: {
      
-      //style: {
-       // color: "#ff7f00", // The color of the line (inlineStyle)
-       // weight: 2,       // The thickness of the line (inlineStyle)
-      //  opacity: 1       // The opacity of the line (inlineStyle)
-     // },
+    style: {
+		fillColor: "#40260E" ,
+     color: "#ff7f00", // The color of the line (inlineStyle)
+     weight: 2,       // The thickness of the line (inlineStyle)
+      opacity: 1       // The opacity of the line (inlineStyle)
+     },
     
-      dualStroke: true, // custom flag
-      outlineStyle: { color: "#111111", weight: 3, opacity: 1 },
-      inlineStyle:  { color: "#ff7f00", weight: 2, opacity: 1 }
-    },
+
     layer: null
   }
 };
@@ -238,6 +236,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
