@@ -63,7 +63,7 @@ mapa.on('mousemove', function (e) {
 
 //Delcaracion capas
 const staticlay = {
-  "Manglares": {
+  "Clasificacción Supervisada de Manglares": {
     type: "image",
     url: "mang2.png",
 	bounds: [[21.240,-87.519],[21.726,-87.092]],
@@ -137,7 +137,7 @@ const staticlay = {
 		},
 		layer: null
 	},
-		"Inventario de Áreas Verdes": {
+	"Inventario de Áreas Verdes": {
 		type: "geojson",
 		url: "InvAreasVerd.geojson",
 		options: {
@@ -152,7 +152,7 @@ const staticlay = {
 		},
 		layer: null
 	},
-		"Suelos de Conservación": {
+	"Suelos de Conservación": {
 		type: "geojson",
 		url: "SueloConserv.geojson",
 		options: {
@@ -319,6 +319,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
