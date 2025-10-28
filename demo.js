@@ -108,7 +108,20 @@ const staticlay = {
 		},
 		layer: null
 	},
-	
+	"CDMX": {
+		type: " geojson",
+		url: "CDMX.geojson",
+		options: {
+			style:{
+				color: "3c0000",
+				weight: 3,
+				opacity: 1, 
+				fillOpacity: 0.0,
+				dashArray: "5, 5"
+			},
+		},
+		layer: null
+	},
 };
 
 const dynlay = {
@@ -260,6 +273,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
