@@ -73,31 +73,13 @@ const staticlay = {
   "Vías": {
 	  type: "geojson",
 	  url: "ViasPSTL.geojson",
-     	options: {
-    // create the dual-stroke effect
-		    onEachFeature: function (feature, layer) {
-      // black outline
-     		 const outline = L.polyline(layer.getLatLngs(), {
-       	 color: "#111111",
-       	 weight: 3,
-       	 opacity: 1
-      	}).addTo(mapa);
-
-      // orange inline
-      	const inline = L.polyline(layer.getLatLngs(), {
-        	color: "#ff7f00",
-        	weight: 2,
-        	opacity: 1
-      	}).addTo(mapa);
-
-      // store both so you can remove later if needed
-      layer.outline = outline;
-      layer.inline = inline;
-    }
-  },
-		layer: null
-
-  },
+     options: {
+      dualStroke: true, // custom flag
+      outlineStyle: { color: "#111111", weight: 3, opacity: 1 },
+      inlineStyle:  { color: "#ff7f00", weight: 2, opacity: 1 }
+    },
+    layer: null
+  }
 };
 
 const dynlay = {
@@ -156,7 +138,7 @@ Object.entries(staticlay).forEach(([name, info]) => {
   label.appendChild(checkbox);
   label.append(" " + name);
   layerList.appendChild(label);
-})
+});
 
 //------------------------------------------------------dinamicas-------------------------------
 
@@ -249,6 +231,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
