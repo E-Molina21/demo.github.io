@@ -76,15 +76,25 @@ const staticlay = {
     options: {
      
     style: {
-		fillColor: "#40260E" ,
-     color: "#ff7f00", // The color of the line (inlineStyle)
-     weight: 2,       // The thickness of the line (inlineStyle)
-      opacity: 1       // The opacity of the line (inlineStyle)
+     color: "#ff7f00",
+     weight: 4,     
+      opacity: 1   
      },
 	},
 
     layer: null
-  }
+  },
+	"Vías Rápidas o Carreteras": {
+		type: "geojson",
+		url: "ViasMTRW.geojson",
+		options: {
+			style: {
+			color:  "#ff7f00",
+     		weight: 5,     
+      		opacity: 1   
+     	},
+		},
+		layer: null
 };
 
 const dynlay = {
@@ -236,6 +246,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
