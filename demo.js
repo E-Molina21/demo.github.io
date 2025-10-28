@@ -95,6 +95,7 @@ const staticlay = {
      	},
 		},
 		layer: null
+	},
 };
 
 const dynlay = {
@@ -246,6 +247,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
