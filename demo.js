@@ -56,6 +56,35 @@ mapa.on('mousemove', function (e) {
 });
 
 
+//--------------------------------
+// Example color mapping function
+const colorhash = {
+  "Primaria": "#ff7f00",
+  "Secundaria": "#ffaa00",
+  "Terciaria": "#ffee00"
+};
+
+// Define the per-feature logic outside
+function viasOnEachFeature(feature, layer) {
+  const zon = feature.properties?.CLASE || "Primaria"; // adjust to your property name
+  const col = colorhash[zon] || "#ff7f00";
+
+  layer.setStyle({
+    color: col,         // line color
+    weight: 2,
+    opacity: 1,
+    fillColor: col,
+    fillOpacity: 0.3
+  });
+
+  // optional popup
+  if (feature.properties?.NOMBRE) {
+    layer.bindPopup(feature.properties.NOMBRE);
+  }
+}
+
+//-------------------------------
+
 
 //Delcaracion capas
 const staticlay = {
@@ -69,20 +98,28 @@ const staticlay = {
   "Vías": {
 	  type: "geojson",
 	  url: "ViasPSTL.geojson",
-      onEachFeature: function(feature, layer) {
-			var zon = feature.properties;
-			var col = colorhash[zon];
+     	options: {
+    // create the dual-stroke effect
+		    onEachFeature: function (feature, layer) {
+      // black outline
+     		 const outline = L.polyline(layer.getLatLngs(), {
+       	 color: "#111111",
+       	 weight: 3,
+       	 opacity: 1
+      	}).addTo(mapa);
 
-			layer.setStyle({
-				fillColor: col,
-				weight: 2,
-				opacity: 1,
-				color: 'red',
-				fillOpacity: .3,
+      // orange inline
+      	const inline = L.polyline(layer.getLatLngs(), {
+        	color: "#ff7f00",
+        	weight: 2,
+        	opacity: 1
+      	}).addTo(mapa);
 
-			});
-      	
-    	},
+      // store both so you can remove later if needed
+      layer.outline = outline;
+      layer.inline = inline;
+    }
+  },
 		layer: null
 
   },
@@ -122,7 +159,8 @@ Object.entries(staticlay).forEach(([name, info]) => {
         if (layerInfo.type === "geojson") {
           const response = await fetch(layerInfo.url);
           const data = await response.json();
-          layerInfo.layer = L.geoJSON(data);
+		  const opts = layerInfo.options || {};
+		  layerInfo.layer = L.geoJSON(data, opts);
         } else if (layerInfo.type === "tile") {
           layerInfo.layer = L.tileLayer(layerInfo.url, layerInfo.options || {});
         } else if (layerInfo.type === "wms") {
@@ -172,6 +210,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
         if (layerInfo.type === "geojson") {
           const response = await fetch(layerInfo.url);
           const data = await response.json();
+		  const opts = layerInfo.options || {};
           layerInfo.layer = L.geoJSON(data);
 
         } else if (layerInfo.type === "tile") {
@@ -238,6 +277,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
