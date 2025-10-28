@@ -57,7 +57,13 @@ mapa.on('mousemove', function (e) {
 
 
 //--------------------------------
-
+const dotPattern = new L.StripePattern({
+    weight: 0,        // no lines, just points
+    spaceWeight: 8,   // spacing between dots
+    color: "orange",
+    opacity: 1,
+    angle: 0          // angle not important for dots
+});
 //-------------------------------
 
 
@@ -162,7 +168,7 @@ const staticlay = {
 				weight: 1,
 				opacity: 1, 
 				fillOpacity: 1,
-				
+				fillpattern: dotPattern
 			},
 		},
 		layer: null
@@ -319,6 +325,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
