@@ -81,7 +81,7 @@ const staticlay = {
      weight: 2,       // The thickness of the line (inlineStyle)
       opacity: 1       // The opacity of the line (inlineStyle)
      },
-    
+	},
 
     layer: null
   }
@@ -236,6 +236,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
