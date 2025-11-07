@@ -70,6 +70,14 @@ const staticlay = {
 	options: {opacity: 0.7},
     layer: null
   },
+	{
+  "Mapa Bivariado unidades económicas: {
+    type: "image",
+    url: "BIVARADOagricVSindust.png",
+	bounds: [[11.252,-120.058],[35.998,-85.060]],
+	options: {opacity: 0.7},
+    layer: null
+  },
 	"Vías": {
     type: "geojson",
     url: "ViasPSTL.geojson",
@@ -319,6 +327,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
