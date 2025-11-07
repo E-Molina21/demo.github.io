@@ -74,7 +74,7 @@ const staticlay = {
   "Mapa Bivariado unidades económicas": {
     type: "image",
     url: "BIVARADOagricVSindust.png",
-	bounds: [[11.252,-120.058],[35.998,-85.060]],
+	bounds: [[35.998,-120.058],[11.252,-85.060]],
 	options: {opacity: 0.7},
     layer: null
   },
@@ -327,6 +327,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
