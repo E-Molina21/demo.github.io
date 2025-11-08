@@ -84,3 +84,35 @@ html, body {
   margin-bottom: 6px;
   font-size: 14px;
 }
+.layer-group {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  overflow: hidden;
+}
+
+.group-header {
+  background-color: #f0f0f0;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  padding: 6px 10px;
+  font-weight: bold;
+  border: none;
+  outline: none;
+}
+
+.group-header:hover {
+  background-color: #e0e0e0;
+}
+
+.group-content {
+  padding: 6px 12px;
+  display: none;
+}
+
+.group-content label {
+  display: block;
+  margin: 4px 0;
+}
+
