@@ -202,7 +202,7 @@ const dynlay = {
 //añadido desde una checkbox
 const layerList = document.getElementById("home");
 
-// Group layers by "group"
+// GAgrupado de capas por "group"
 const groups = {};
 Object.entries(staticlay).forEach(([name, info]) => {
   const group = info.group || "Otros";
@@ -210,7 +210,7 @@ Object.entries(staticlay).forEach(([name, info]) => {
   groups[group].push({ name, info });
 });
 
-// Build collapsible sections
+// Construye secciones colapsables
 Object.entries(groups).forEach(([groupName, layers]) => {
   const groupDiv = document.createElement("div");
   groupDiv.classList.add("layer-group");
@@ -221,20 +221,20 @@ Object.entries(groups).forEach(([groupName, layers]) => {
   
   const content = document.createElement("div");
   content.classList.add("group-content");
-  content.style.display = "none"; // initially collapsed
+  content.style.display = "none"; // Colapsado al cargar
 
   header.addEventListener("click", () => {
     content.style.display = content.style.display === "none" ? "block" : "none";
   });
 
-  // Create checkboxes for each layer
+  // checkbox para cada capa
   layers.forEach(({ name, info }) => {
     const label = document.createElement("label");
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.dataset.layerName = name;
 
-    // keep your lazy load logic
+    // "lazy loading"
     checkbox.addEventListener("change", async (e) => {
       const checked = e.target.checked;
       const layerName = e.target.dataset.layerName;
@@ -271,7 +271,7 @@ Object.entries(groups).forEach(([groupName, layers]) => {
 
 const layerListdyn = document.getElementById("dyn");
 
-// Create checkboxes dynamically
+// checkboxes dinamicas
 Object.entries(dynlay).forEach(([name, info]) => {
   const label = document.createElement("label");
   const checkbox = document.createElement("input");
@@ -284,7 +284,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
     const layerInfo = dynlay[layerName];
 
       if (checked) {
-      // Lazy-load only if not already loaded
+      //"lazy load"
       if (!layerInfo.layer) {
         console.log(`Loading ${layerName}...`);
 
@@ -304,7 +304,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
           layerInfo.layer = L.tileLayer.wms(layerInfo.url, layerInfo.options || {});
 
         } else if (layerInfo.type === "esri-dynamic") {
-          // Esri dynamic map layer (MapServer export)
+         
           if (!L.esri) {
             console.error("Esri Leaflet plugin not loaded. Add <script src='https://unpkg.com/esri-leaflet'></script> before this script.");
             return;
@@ -316,7 +316,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
           });
 
         } else if (layerInfo.type === "esri-feature") {
-          // Esri Feature Layer (vector data)
+          // Esri Feature Layer (datos vectoriales)
           if (!L.esri) {
             console.error("Esri Leaflet plugin not loaded. Add <script src='https://unpkg.com/esri-leaflet'></script> before this script.");
             return;
@@ -345,11 +345,11 @@ Object.entries(dynlay).forEach(([name, info]) => {
         }
       }
 
-      // Add to map if created
+     
       if (layerInfo.layer) mapa.addLayer(layerInfo.layer);
 
     } else {
-      // Remove layer if toggled off
+
       if (layerInfo.layer) mapa.removeLayer(layerInfo.layer);
     }
   });
@@ -358,6 +358,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
