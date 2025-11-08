@@ -64,6 +64,7 @@ mapa.on('mousemove', function (e) {
 //Delcaracion capas
 const staticlay = {
   "Clasificación Supervisada de Manglares": {
+	group: "Raster",
     type: "image",
     url: "mang2.png",
 	bounds: [[21.240,-87.519],[21.726,-87.092]],
@@ -72,6 +73,7 @@ const staticlay = {
   },
 	
   "Mapa Bivariado unidades económicas": {
+	group: "Raster",
     type: "image",
     url: "BIVARADOagricVSindust.png",
 	bounds: [[35.339,-120.058],[10.863,-85.060]],
@@ -79,6 +81,7 @@ const staticlay = {
     layer: null
   },
 	"Vías": {
+	group: "CDMX",
     type: "geojson",
     url: "ViasPSTL.geojson",
     options: {
@@ -93,6 +96,7 @@ const staticlay = {
     layer: null
   },
 	"Vías Rápidas o Carreteras": {
+		group: "CDMX",
 		type: "geojson",
 		url: "ViasMTRW.geojson",
 		options: {
@@ -105,6 +109,7 @@ const staticlay = {
 		layer: null
 	},
 	"Vías residenciales": {
+		group: "CDMX",
 		type: "geojson",
 		url: "ViasResid2.geojson",
 		options: {
@@ -117,6 +122,7 @@ const staticlay = {
 		layer: null
 	},
 	"CDMX": {
+		group: "CDMX",
 		type: "geojson",
 		url: "CDMX.geojson",
 		options: {
@@ -131,6 +137,7 @@ const staticlay = {
 		layer: null
 	},
 	"Cuerpos de Agua": {
+		group: "CDMX",
 		type: "geojson",
 		url: "AguaCDMX.geojson",
 		options: {
@@ -146,6 +153,7 @@ const staticlay = {
 		layer: null
 	},
 	"Inventario de Áreas Verdes": {
+		group: "CDMX",
 		type: "geojson",
 		url: "InvAreasVerd.geojson",
 		options: {
@@ -161,6 +169,7 @@ const staticlay = {
 		layer: null
 	},
 	"Suelos de Conservación": {
+		group: "CDMX",
 		type: "geojson",
 		url: "SueloConserv.geojson",
 		options: {
@@ -193,47 +202,69 @@ const dynlay = {
 //añadido desde una checkbox
 const layerList = document.getElementById("home");
 
+// Group layers by "group"
+const groups = {};
 Object.entries(staticlay).forEach(([name, info]) => {
-  const label = document.createElement("label");
-  const checkbox = document.createElement("input");
-  checkbox.type = "checkbox";
-  checkbox.dataset.layerName = name;
+  const group = info.group || "Otros";
+  if (!groups[group]) groups[group] = [];
+  groups[group].push({ name, info });
+});
 
-  checkbox.addEventListener("change", async (e) => {
-    const checked = e.target.checked;
-    const layerName = e.target.dataset.layerName;
-    const layerInfo = staticlay[layerName];
+// Build collapsible sections
+Object.entries(groups).forEach(([groupName, layers]) => {
+  const groupDiv = document.createElement("div");
+  groupDiv.classList.add("layer-group");
 
-    if (checked) {
-      if (!layerInfo.layer) {
-        console.log(`Loading ${layerName}...`);
+  const header = document.createElement("button");
+  header.classList.add("group-header");
+  header.textContent = groupName;
+  
+  const content = document.createElement("div");
+  content.classList.add("group-content");
+  content.style.display = "none"; // initially collapsed
 
-        if (layerInfo.type === "geojson") {
-          const response = await fetch(layerInfo.url);
-          const data = await response.json();
-          layerInfo.layer = L.geoJSON(data, layerInfo.options || {});
-        } else if (layerInfo.type === "tile") {
-          layerInfo.layer = L.tileLayer(layerInfo.url, layerInfo.options || {});
-        } else if (layerInfo.type === "wms") {
-          layerInfo.layer = L.tileLayer.wms(layerInfo.url, layerInfo.options || {});
-        } else if (layerInfo.type === "image") {
-          if (!layerInfo.bounds) {
-            console.error(`Missing bounds for image layer: ${layerName}`);
-            return;
-          }
-          layerInfo.layer = L.imageOverlay(layerInfo.url, layerInfo.bounds, layerInfo.options || {});
-        }
-      }
-
-      if (layerInfo.layer) mapa.addLayer(layerInfo.layer);
-    } else {
-      if (layerInfo.layer) mapa.removeLayer(layerInfo.layer);
-    }
+  header.addEventListener("click", () => {
+    content.style.display = content.style.display === "none" ? "block" : "none";
   });
 
-  label.appendChild(checkbox);
-  label.append(" " + name);
-  layerList.appendChild(label);
+  // Create checkboxes for each layer
+  layers.forEach(({ name, info }) => {
+    const label = document.createElement("label");
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.dataset.layerName = name;
+
+    // keep your lazy load logic
+    checkbox.addEventListener("change", async (e) => {
+      const checked = e.target.checked;
+      const layerName = e.target.dataset.layerName;
+      const layerInfo = staticlay[layerName];
+
+      if (checked) {
+        if (!layerInfo.layer) {
+          console.log(`Loading ${layerName}...`);
+          if (layerInfo.type === "geojson") {
+            const response = await fetch(layerInfo.url);
+            const data = await response.json();
+            layerInfo.layer = L.geoJSON(data, layerInfo.options || {});
+          } else if (layerInfo.type === "image") {
+            layerInfo.layer = L.imageOverlay(layerInfo.url, layerInfo.bounds, layerInfo.options || {});
+          }
+        }
+        if (layerInfo.layer) mapa.addLayer(layerInfo.layer);
+      } else {
+        if (layerInfo.layer) mapa.removeLayer(layerInfo.layer);
+      }
+    });
+
+    label.appendChild(checkbox);
+    label.append(" " + name);
+    content.appendChild(label);
+  });
+
+  groupDiv.appendChild(header);
+  groupDiv.appendChild(content);
+  layerList.appendChild(groupDiv);
 });
 
 //------------------------------------------------------dinamicas-------------------------------
@@ -327,6 +358,7 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
+
 
 
 
