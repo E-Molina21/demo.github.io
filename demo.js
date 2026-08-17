@@ -184,6 +184,22 @@ const staticlay = {
 		},
 		layer: null
 	},
+	"TMAX":{
+		group: "CDMX",
+		type: "geojson",
+		url: "repwgs.geojson",
+		options: {
+			style:{
+				color: "#F54927",
+				fillColor: "#F54927", 
+				weight: 1,
+				opacity: 1, 
+				fillOpacity: 0.9,
+
+			},
+		},
+		layer: null
+	},
 	
 };
 
