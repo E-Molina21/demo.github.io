@@ -61,7 +61,7 @@ mapa.on('mousemove', function (e) {
 //--------------prueba de declaracion de capas 
 var TMAX = new L.geoJson();
 $.getJSON("repwgs.geojson",function(data){
-	var info = new L.geojson(data, {
+	var info = new L.geoJson(data, {
 			onEachFeature: function(feature, layer) {
 				layer.setStyle({
 					fillColor: "#F54927",
