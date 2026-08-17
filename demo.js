@@ -70,7 +70,7 @@ $.getJSON("repwgs.geojson",function(data){
 					color: 'black',
 					fillOpacity: 0.9,
 				});
-					layer.bindPopup("Municipio: "+ feature.properties.NOMGEO + ", con temperatura superior al " + feature.properties.Tmax_20260601_20260604 + " Percentil");	
+					layer.bindPopup("Municipio: "+ feature.properties.NOMGEO + ", con temperatura superior al 95 Percentil");	
 			}
 		}).addTo(TMAX);
 });
