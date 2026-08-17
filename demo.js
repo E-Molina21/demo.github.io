@@ -201,7 +201,11 @@ const staticlay = {
 		},
 		layer: null
 	},
-	TMAX
+	"Temperatura Máxima": {
+		group: "CDMX",
+		type: "geojson",
+		layer: TMAX,
+	},
 };
 
 
@@ -379,65 +383,6 @@ Object.entries(dynlay).forEach(([name, info]) => {
   label.append(" " + name);
   layerListdyn.appendChild(label);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
