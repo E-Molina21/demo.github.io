@@ -58,6 +58,23 @@ mapa.on('mousemove', function (e) {
 
 //--------------------------------
 
+//--------------prueba de declaracion de capas 
+var TMAX = new L.geoJson();
+$.getJSON("repwgs.geojson",function(data){
+	var info = new L.geojson(data, {
+			onEachFeature: function(feature, layer) {
+				layer.setStyle({
+					fillColor: "#F54927",
+					weight: 1,
+					opacity: 0.9,
+					color: 'black',
+					fillOpacity: 0.9,
+				});
+					layer.bindPopup("Municipio: "+ feature.properties.NOMGEO + ", con temperatura superior al " + feature.propertie.Tmax_20260601_20260604 + " Percentil");	
+			}
+		}).addTo(TMAX);
+
+//--------------------------fin prueba  borrar si no sirve	
 //-------------------------------
 
 
@@ -184,27 +201,12 @@ const staticlay = {
 		},
 		layer: null
 	},
-	"TMAX":{
-		group: "CDMX",
-		type: "geojson",
-		url: "repwgs.geojson",
-		var info = new L.geojson(data, {
-			onEachFeature: function(feature, layer) {
-				layer.setStyle({
-					fillColor: "#F54927",
-					weight: 1,
-					opacity: 0.9,
-					color: 'black',
-					fillOpacity: 0.9,
-				});
-					layer.bindPopup("Municipio: "+ feature.properties.NOMGEO + ", con temperatura superior al " + feature.propertie.Tmax_20260601_20260604 + " Percentil");	
-			}
-		}).addTo(TMAX);
-	},
-		layer: null
-	},
-	
+	TMAX
 };
+
+
+
+
 
 const dynlay = {
 	"Ciclones Tropicales NOAA": {
