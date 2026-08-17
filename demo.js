@@ -188,16 +188,19 @@ const staticlay = {
 		group: "CDMX",
 		type: "geojson",
 		url: "repwgs.geojson",
-		options: {
-			style:{
-				color: "#F54927",
-				fillColor: "#F54927", 
-				weight: 1,
-				opacity: 1, 
-				fillOpacity: 0.9,
+		var info = new L.geojson(data, {
+			onEachFeature: function(feature, layer) {
+				layer.setStyle({
+					fillColor: "#F54927",
+					weight: 1,
+					opacity: 0.9,
+					color: 'black',
+					fillOpacity: 0.9,
+				});
+					layer.bindPopup("Municipio: "+ feature.properties.NOMGEO + ", con temperatura superior al " + feature.propertie.Tmax_20260601_20260604 + " Percentil");	
+			}
+		}).addTo(TMAX);
 
-			},
-		},
 		layer: null
 	},
 	
