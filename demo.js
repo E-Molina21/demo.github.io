@@ -190,8 +190,8 @@ const staticlay = {
 		url: "Periodogeojson3.geojson",
 		options: {
 			style: {
-				color: red,
-				fillColor: red,
+				color: "#F54927",
+				fillColor: "#F54927",
 				weight: 1,
 				opacity: 1,
 				fillOpacity: 0.8,
