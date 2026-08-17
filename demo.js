@@ -184,6 +184,21 @@ const staticlay = {
 		},
 		layer: null
 	},
+	"Tmax": {
+		group: "CDMX",
+		type: "geojson",
+		url: "Periodogeojson3.geojson",
+		options: {
+			style: {
+				color: red,
+				fillColor: red,
+				weight: 1,
+				opacity: 1,
+				fillOpacity: 0.8,
+			},
+		},
+		layer: null
+	},
 	
 };
 
