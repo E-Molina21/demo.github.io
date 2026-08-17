@@ -73,7 +73,7 @@ $.getJSON("repwgs.geojson",function(data){
 					layer.bindPopup("Municipio: "+ feature.properties.NOMGEO + ", con temperatura superior al " + feature.propertie.Tmax_20260601_20260604 + " Percentil");	
 			}
 		}).addTo(TMAX);
-
+});
 //--------------------------fin prueba  borrar si no sirve	
 //-------------------------------
 
