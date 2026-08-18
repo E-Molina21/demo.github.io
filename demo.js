@@ -76,7 +76,7 @@ $.getJSON("repwgs.geojson",function(data){
 });
 
 var T990 = new L.geoJson();
-$.getJSON("repwgs.geojson",function(data){
+$.getJSON("990v2.geojson",function(data){
 	var info = new L.geoJson(data, {
 			onEachFeature: function(feature, layer) {
 				layer.setStyle({
@@ -92,7 +92,7 @@ $.getJSON("repwgs.geojson",function(data){
 });
 
 var T950 = new L.geoJson();
-$.getJSON("repwgs.geojson",function(data){
+$.getJSON("950v2.geojson",function(data){
 	var info = new L.geoJson(data, {
 			onEachFeature: function(feature, layer) {
 				layer.setStyle({
