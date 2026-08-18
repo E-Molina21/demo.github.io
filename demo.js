@@ -59,7 +59,7 @@ mapa.on('mousemove', function (e) {
 //--------------------------------
 
 //--------------prueba de declaracion de capas 
-var TMAX = new L.geoJson();
+var T999 = new L.geoJson();
 $.getJSON("repwgs.geojson",function(data){
 	var info = new L.geoJson(data, {
 			onEachFeature: function(feature, layer) {
@@ -72,8 +72,41 @@ $.getJSON("repwgs.geojson",function(data){
 				});
 					layer.bindPopup("Municipio: "+ feature.properties.NOMGEO + ", con temperatura superior al 95 Percentil");	
 			}
-		}).addTo(TMAX);
+		}).addTo(T999);
 });
+
+var T990 = new L.geoJson();
+$.getJSON("repwgs.geojson",function(data){
+	var info = new L.geoJson(data, {
+			onEachFeature: function(feature, layer) {
+				layer.setStyle({
+					fillColor: "#FE9A37",
+					weight: 1,
+					opacity: 0.9,
+					color: 'black',
+					fillOpacity: 0.9,
+				});
+					layer.bindPopup("Municipio: "+ feature.properties.NOMGEO + ", con temperatura superior al 95 Percentil");	
+			}
+		}).addTo(T990);
+});
+
+var T950 = new L.geoJson();
+$.getJSON("repwgs.geojson",function(data){
+	var info = new L.geoJson(data, {
+			onEachFeature: function(feature, layer) {
+				layer.setStyle({
+					fillColor: "#FFDF20",
+					weight: 1,
+					opacity: 0.9,
+					color: 'black',
+					fillOpacity: 0.9,
+				});
+					layer.bindPopup("Municipio: "+ feature.properties.NOMGEO + ", con temperatura superior al 95 Percentil");	
+			}
+		}).addTo(T950);
+});
+
 //--------------------------fin prueba  borrar si no sirve	
 //-------------------------------
 
@@ -201,10 +234,20 @@ const staticlay = {
 		},
 		layer: null
 	},
-	"Temperatura Máxima": {
+	"Temperatura Máxima P99.9": {
 		group: "CDMX",
 		type: "geojson",
-		layer: TMAX,
+		layer: T999,
+	},
+		"Temperatura Máxima P90": {
+		group: "CDMX",
+		type: "geojson",
+		layer: T990,
+	},
+		"Temperatura Máxima P95": {
+		group: "CDMX",
+		type: "geojson",
+		layer: T950,
 	},
 };
 
