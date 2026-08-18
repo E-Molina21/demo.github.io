@@ -64,7 +64,7 @@ $.getJSON("repwgs.geojson",function(data){
 	var info = new L.geoJson(data, {
 			onEachFeature: function(feature, layer) {
 				layer.setStyle({
-					fillColor: "#F54927",
+					fillColor: "#E7180B",
 					weight: 1,
 					opacity: 0.9,
 					color: 'black',
@@ -80,7 +80,7 @@ $.getJSON("990v2.geojson",function(data){
 	var info = new L.geoJson(data, {
 			onEachFeature: function(feature, layer) {
 				layer.setStyle({
-					fillColor: "#FE9A37",
+					fillColor: "#FF8904",
 					weight: 1,
 					opacity: 0.9,
 					color: 'black',
