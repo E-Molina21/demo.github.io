@@ -239,7 +239,7 @@ const staticlay = {
 		type: "geojson",
 		layer: T999,
 	},
-		"Temperatura Máxima P90": {
+		"Temperatura Máxima P99": {
 		group: "CDMX",
 		type: "geojson",
 		layer: T990,
