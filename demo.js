@@ -70,7 +70,7 @@ $.getJSON("repwgs.geojson",function(data){
 					color: 'black',
 					fillOpacity: 0.9,
 				});
-					layer.bindPopup("Municipio: "+ feature.properties.NOMGEO + ", con temperatura superior al 95 Percentil");	
+					layer.bindPopup("Municipio: "+ feature.properties.NOMGEO + ", con temperatura superior al 99.9 Percentil");	
 			}
 		}).addTo(T999);
 });
@@ -86,7 +86,7 @@ $.getJSON("990v2.geojson",function(data){
 					color: 'black',
 					fillOpacity: 0.9,
 				});
-					layer.bindPopup("Municipio: "+ feature.properties.NOMGEO + ", con temperatura superior al 95 Percentil");	
+					layer.bindPopup("Municipio: "+ feature.properties.NOMGEO + ", con temperatura superior al 99 Percentil");	
 			}
 		}).addTo(T990);
 });
